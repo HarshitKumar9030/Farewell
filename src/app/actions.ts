@@ -1,26 +1,66 @@
 "use server"
 
-import { generateImage } from "@/utils/generateImage"
-import { sendWhatsAppMessage } from "@/utils/sendWhatsAppMessage"
+import clientPromise from "@/lib/mongodb"
+import { ObjectId } from "mongodb"
 
-const students = [
-  { name: "John Doe", classStream: "12th PCM", phoneNumber: "+1234567890" },
-  { name: "Jane Smith", classStream: "12th PCB", phoneNumber: "+0987654321" },
-  // Add more students here...
-]
+export async function createShortUrl(name: string, classStream: string) {
+  const client = await clientPromise
+  const db = client.db("farewell-invitations")
+  const collection = db.collection("url-mappings")
 
-export async function sendInvitations() {
-  for (const student of students) {
-    const image = await generateImage(student.name, student.classStream)
-    const imageUrl = `data:image/png;base64,${image.toString("base64")}`
+  const result = await collection.insertOne({
+    name,
+    classStream,
+    createdAt: new Date(),
+  })
 
-    await sendWhatsAppMessage({
-      to: student.phoneNumber,
-      body: `Dear ${student.name}, you're invited to the farewell celebration for ${student.classStream}. Join us on June 15, 2023, at 9:30 AM at UCSKM Public School, Bhiwadi.`,
-      mediaUrl: imageUrl,
-    })
+  return result.insertedId.toString()
+}
+
+export async function getUrlData(id: string) {
+  const client = await clientPromise
+  const db = client.db("farewell-invitations")
+  const collection = db.collection("url-mappings")
+
+  if (!ObjectId.isValid(id)) {
+    return null
   }
 
-  return { message: "All invitations sent successfully!" }
+  const result = await collection.findOne({ _id: new ObjectId(id) })
+  if (result) {
+    return {
+      name: result.name,
+      classStream: result.classStream,
+    }
+  }
+  return null
+}
+
+export async function getAllUrls() {
+  const client = await clientPromise
+  const db = client.db("farewell-invitations")
+  const collection = db.collection("url-mappings")
+
+  const results = await collection.find({}).sort({ createdAt: -1 }).toArray()
+  return results.map((result) => ({
+    id: result._id.toString(),
+    name: result.name,
+    classStream: result.classStream,
+    createdAt: result.createdAt,
+  }))
+}
+
+export async function bulkCreateUrls(data: { name: string; classStream: string }[]) {
+  const client = await clientPromise
+  const db = client.db("farewell-invitations")
+  const collection = db.collection("url-mappings")
+
+  const documents = data.map((item) => ({
+    ...item,
+    createdAt: new Date(),
+  }))
+
+  const result = await collection.insertMany(documents)
+  return result.insertedIds
 }
 

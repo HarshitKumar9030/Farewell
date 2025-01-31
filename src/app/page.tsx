@@ -1,6 +1,4 @@
 import InvitationCard from "@/components/InvitationCard"
-import { Button } from "@/components/ui/button"
-import { sendInvitations } from "@/app/actions"
 
 const students = [
   { name: "John Doe", classStream: "12th PCM", phoneNumber: "+1234567890" },
@@ -40,11 +38,6 @@ export default function Home() {
         <div className="mt-12 text-center space-y-4">
                   {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
           {/* @ts-ignore */}
-          <form action={sendInvitations}>
-            <Button type="submit" className="w-64">
-              Send Invitations via WhatsApp
-            </Button>
-          </form>
         </div>
       </div>
     </div>
