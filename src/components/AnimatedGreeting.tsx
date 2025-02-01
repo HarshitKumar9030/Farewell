@@ -158,7 +158,7 @@ export default function AnimatedGreeting({
                 className="text-xl md:text-2xl text-white/90 font-medium mb-8 drop-shadow-md"
                 variants={itemVariants}
               >
-                Class of {classStream}
+                Class {classStream}
               </motion.p>
 
               <motion.div variants={itemVariants}>
@@ -197,7 +197,7 @@ export default function AnimatedGreeting({
                   With best wishes from your juniors,
                 </p>
                 <p className="text-xl md:text-2xl text-white font-semibold mt-2 bg-gradient-to-r from-white via-amber-100 to-purple-200 bg-clip-text text-transparent">
-                  Class of 11th (2024-25)
+                  Class 11th (2024-25)
                 </p>
                 <div className="mt-4 flex items-center justify-center space-x-2">
                   <div className="w-8 h-px bg-white/40" />
