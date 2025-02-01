@@ -73,7 +73,8 @@ export async function getAllUrlsSortedBySection() {
 
   const sortedUrls = results.reduce(
     (acc, result) => {
-      const section = result.classStream.split(" ")[0] // Assuming format is "12th Science (PCM)"
+      // Use the full class stream as the section key
+      const section = result.classStream
       if (!acc[section]) {
         acc[section] = []
       }
