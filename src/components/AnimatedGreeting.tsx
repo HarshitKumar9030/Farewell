@@ -6,10 +6,11 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import { Sparkles, Heart, Stars, Rocket } from "lucide-react";
+import { Heart, Stars, Rocket } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import GreetingMessage from "@/components/GreetingMessage";
 import React, { useEffect, useState } from "react";
+import Image from "next/image"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -133,7 +134,7 @@ export default function AnimatedGreeting({
                   rotate: shouldReduceMotion ? 0 : [0, 20, -20, 0],
                 }}
               >
-                <Sparkles className="w-12 h-12 text-yellow-300 animate-pulse" />
+                <Image alt="logo" src='/logo.png' width={150} height={150} />
               </motion.div>
 
               <motion.h1
