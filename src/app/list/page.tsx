@@ -6,6 +6,7 @@ import { SectionTabs } from "@/components/SectionsTabs"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import { Toaster } from "@/components/ui/toaster"
 
 interface Student {
   id: string
@@ -63,6 +64,7 @@ export default function ListPage() {
           <div className="text-center text-white text-xl">No greetings found. Start by generating some greetings!</div>
         )}
       </div>
+      <Toaster />
     </div>
   )
 }

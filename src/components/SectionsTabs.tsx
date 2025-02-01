@@ -5,8 +5,9 @@ import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { ChevronUp, ChevronDown } from "lucide-react"
+import { ChevronUp, ChevronDown, Copy, Check } from "lucide-react"
 import Link from "next/link"
+import { useToast } from "@/hooks/use-toast"
 
 interface Student {
   id: string
@@ -22,6 +23,8 @@ interface SectionTabsProps {
 export function SectionTabs({ sections }: SectionTabsProps) {
   const [sortOrders, setSortOrders] = useState<Record<string, "asc" | "desc">>({})
   const [sortedSections, setSortedSections] = useState<Record<string, Student[]>>(sections)
+  const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({})
+  const { toast } = useToast()
 
   const sortStudents = (sectionKey: string) => {
     const currentOrder = sortOrders[sectionKey] || "asc"
@@ -33,6 +36,27 @@ export function SectionTabs({ sections }: SectionTabsProps) {
 
     setSortOrders({ ...sortOrders, [sectionKey]: newOrder })
     setSortedSections({ ...sortedSections, [sectionKey]: sorted })
+  }
+
+  const copyToClipboard = async (url: string, studentId: string) => {
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopiedStates({ ...copiedStates, [studentId]: true })
+      toast({
+        title: "URL Copied",
+        description: "The greeting URL has been copied to your clipboard.",
+      })
+      setTimeout(() => {
+        setCopiedStates({ ...copiedStates, [studentId]: false })
+      }, 2000)
+    } catch (err) {
+      console.error("Failed to copy: ", err)
+      toast({
+        title: "Copy Failed",
+        description: "Failed to copy the URL. Please try again.",
+        variant: "destructive",
+      })
+    }
   }
 
   const sectionKeys = Object.keys(sections).sort()
@@ -93,14 +117,25 @@ export function SectionTabs({ sections }: SectionTabsProps) {
                         <TableCell className="text-white font-medium">{student.name}</TableCell>
                         <TableCell className="text-white">{student.classStream}</TableCell>
                         <TableCell>
-                          <Link
-                            href={student.url}
-                            className="text-blue-200 hover:text-blue-100 underline"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            View Greeting
-                          </Link>
+                          <div className="flex space-x-2">
+                            <Link
+                              href={student.url}
+                              className="text-blue-200 hover:text-blue-100 underline"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View
+                            </Link>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-white hover:bg-white/10"
+                              onClick={() => copyToClipboard(student.url, student.id)}
+                            >
+                              {copiedStates[student.id] ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                              <span className="sr-only">Copy URL</span>
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}

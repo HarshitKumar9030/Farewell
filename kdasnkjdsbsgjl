@@ -196,3 +196,126 @@
     "classStream": "XII PCM A"
   }
 ]
+
+[
+    {
+        "name": "Abhijon Gupta",
+        "classStream": "XII PCB"
+      },
+      {
+        "name": "Aditi Das",
+        "classStream": "XII PCB"
+      },
+        {
+            "name": "Anahita Bansal",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Ahsan Khan",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Aniket Yadav",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Anushka",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Ayush Sharma",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Divya Sengar",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Harshita Sharma",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Khushi",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Kritika Gupta",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Kundan Pandey",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Mehul Mourya",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Nikita Sharma",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Nikita",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Pooja Khichar",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Priya",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Priyanshi Sharma",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Rahul Kumar",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Rahul Singh",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Sachin Singh",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Sadia Khatim",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Sufia Khan",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Sana Daniel",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Shubhangi Rastogi",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Sani Gupta",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Sushmita Pal",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Teena Chhetri",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Vidhi Dangiya",
+            "classStream": "XII PCB"
+        },
+        {
+            "name": "Yukta Pandey",
+            "classStream": "XII PCB"
+        }
+]
