@@ -6,7 +6,10 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
   title: "Farewell Invitations",
-  description: "Send personalized farewell invitations to students",
+  description: "Wishing you all a happy and prosperous life ahead!",
+  audioPreference: {
+    autoplay: false,
+  },
 }
 
 export default function RootLayout({

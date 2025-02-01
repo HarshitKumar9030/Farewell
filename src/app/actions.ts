@@ -64,3 +64,30 @@ export async function bulkCreateUrls(data: { name: string; classStream: string }
   return result.insertedIds
 }
 
+export async function getAllUrlsSortedBySection() {
+  const client = await clientPromise
+  const db = client.db("farewell-invitations")
+  const collection = db.collection("url-mappings")
+
+  const results = await collection.find({}).sort({ classStream: 1, name: 1 }).toArray()
+
+  const sortedUrls = results.reduce(
+    (acc, result) => {
+      const section = result.classStream.split(" ")[0] // Assuming format is "12th Science (PCM)"
+      if (!acc[section]) {
+        acc[section] = []
+      }
+      acc[section].push({
+        id: result._id.toString(),
+        name: result.name,
+        classStream: result.classStream,
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/greetings/${result._id.toString()}`,
+      })
+      return acc
+    },
+    {} as Record<string, Array<{ id: string; name: string; classStream: string; url: string }>>,
+  )
+
+  return sortedUrls
+}
+

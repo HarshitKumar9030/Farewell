@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { createShortUrl, getAllUrls, bulkCreateUrls } from "../actions"
 import { useToast } from "@/hooks/use-toast"
+import Link from "next/link"
 
 export default function GeneratePage() {
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null)
@@ -165,9 +166,14 @@ export default function GeneratePage() {
 
         <Card className="p-6 backdrop-blur-xl bg-white/10">
           <h2 className="text-2xl font-bold text-white mb-6">All Generated URLs</h2>
-          <Button onClick={fetchUrls} className="mb-4 bg-white/20 hover:bg-white/30 text-white">
-            Refresh List
-          </Button>
+          <div className="flex justify-between items-center mb-4">
+            <Button onClick={fetchUrls} className="bg-white/20 hover:bg-white/30 text-white">
+              Refresh List
+            </Button>
+            <Link href="/list" passHref>
+              <Button className="bg-white text-purple-600 hover:bg-white/90">View Full List</Button>
+            </Link>
+          </div>
           <div className="space-y-4">
             {urls.map((url) => (
               <div key={url.id} className="p-4 bg-white/10 rounded-md">

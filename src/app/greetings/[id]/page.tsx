@@ -1,6 +1,7 @@
 import { getUrlData } from "@/app/actions"
 import { notFound } from "next/navigation"
 import AnimatedGreeting from "@/components/AnimatedGreeting"
+import { BackgroundMusic } from "@/components/BackgroundMusic"
 
 export default async function GreetingPage({
   params,
@@ -20,6 +21,7 @@ export default async function GreetingPage({
       <div className="absolute inset-0 opacity-10 mix-blend-soft-light" />
 
       <AnimatedGreeting name={data.name} classStream={data.classStream} />
+      <BackgroundMusic />
     </div>
   )
 }
