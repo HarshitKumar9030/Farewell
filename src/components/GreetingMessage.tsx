@@ -37,9 +37,9 @@ export default function GreetingMessage() {
       >
         <span className="text-4xl text-yellow-300 font-bold mr-2">✦</span>
         As you stand at the threshold of a new beginning, we, your juniors, want to express our heartfelt gratitude for
-        being incredible mentors. Your guidance, friendship, and the memories we&apos;ve shared will forever echo in the 
+        being loving companions. Your guidance, friendship, and the memories we&apos;ve shared will forever echo in the 
         <span className="bg-gradient-to-r from-yellow-300 to-amber-400 bg-clip-text text-transparent mx-2">
-          halls of UCSKM
+          corridors of UCSKM
         </span>.
       </motion.p>
 
