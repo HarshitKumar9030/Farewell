@@ -2,38 +2,46 @@
 
 import { useEffect, useState } from "react"
 import { getAllUrlsSortedBySection } from "@/app/actions"
-import { SortableSection } from "@/components/SortableSection"
+import { SectionTabs } from "@/components/SectionsTabs"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { ArrowLeft, ChevronUp, ChevronDown } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
+
+interface Student {
+  id: string
+  name: string
+  classStream: string
+  url: string
+}
 
 interface SortedUrls {
-  [section: string]: Array<{
-    id: string
-    name: string
-    classStream: string
-    url: string
-  }>
+  [section: string]: Student[]
 }
 
 export default function ListPage() {
   const [sortedUrls, setSortedUrls] = useState<SortedUrls>({})
-  const [sectionOrder, setSectionOrder] = useState<"asc" | "desc">("asc")
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllUrlsSortedBySection()
-      setSortedUrls(data)
+      try {
+        const data = await getAllUrlsSortedBySection()
+        setSortedUrls(data)
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        setIsLoading(false)
+      }
     }
     fetchData()
   }, [])
 
-  const sortSections = () => {
-    const sortedSections = Object.entries(sortedUrls).sort(([a], [b]) => {
-      return sectionOrder === "asc" ? a.localeCompare(b) : b.localeCompare(a)
-    })
-    setSortedUrls(Object.fromEntries(sortedSections))
-    setSectionOrder(sectionOrder === "asc" ? "desc" : "asc")
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    )
   }
 
   return (
@@ -46,15 +54,13 @@ export default function ListPage() {
             </Button>
           </Link>
           <h1 className="text-4xl font-bold text-center text-white">Farewell Greetings List</h1>
-          <Button variant="ghost" className="text-white hover:bg-white/10" onClick={sortSections}>
-            Sort Sections{" "}
-            {sectionOrder === "asc" ? <ChevronUp className="ml-2 h-4 w-4" /> : <ChevronDown className="ml-2 h-4 w-4" />}
-          </Button>
         </div>
 
-        {Object.entries(sortedUrls).map(([section, students]) => (
-          <SortableSection key={section} section={section} students={students} />
-        ))}
+        {Object.keys(sortedUrls).length > 0 ? (
+          <SectionTabs sections={sortedUrls} />
+        ) : (
+          <div className="text-center text-white text-xl">No greetings found. Start by generating some greetings!</div>
+        )}
       </div>
     </div>
   )
